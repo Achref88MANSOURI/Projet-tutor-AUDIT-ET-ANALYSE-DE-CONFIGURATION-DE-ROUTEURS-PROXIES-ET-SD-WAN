@@ -1,0 +1,119 @@
+<group name="services_aaa_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} aaa new-model
+</group>
+
+<group name="services_aaa_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no aaa new-model
+</group>
+
+<group name="services_aaa_method*" method="table">
+{{ source_line | DIGIT | to_int }} aaa {{ category }} {{ method | ORPHRASE }}
+</group>
+
+<group name="services_user*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} privilege {{ privilege | DIGIT | to_int }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_user_simple*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_tacacs*" method="table">
+{{ source_line | DIGIT | to_int }} tacacs server {{ name }}
+</group>
+
+<group name="services_radius*" method="table">
+{{ source_line | DIGIT | to_int }} radius server {{ name }}
+</group>
+
+<group name="services_auth_address*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }}
+</group>
+
+<group name="services_auth_ports*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }} auth-port {{ auth_port | DIGIT | to_int }} acct-port {{ acct_port | DIGIT | to_int }}
+</group>
+
+<group name="services_password_encryption_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service password-encryption
+</group>
+
+<group name="catalogue_password_minimum*" method="table">
+{{ source_line | DIGIT | to_int }} security passwords min-length {{ length | DIGIT | to_int }}
+</group>
+
+<group name="services_user_no_format*" method="table" functions="set('not_specified', credential_format)">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential }}
+</group>
+
+<group name="admin_authentication_login*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authentication login {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_login_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no aaa authentication login {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_enable*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authentication enable {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_enable_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no aaa authentication enable {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authorization_exec*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authorization exec {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authorization_commands*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authorization commands {{ level | DIGIT | to_int }} {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_exec*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting exec {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_exec_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting exec {{ name }} none
+</group>
+
+<group name="admin_accounting_commands*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting commands {{ level | DIGIT | to_int }} {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_commands_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting commands {{ level | DIGIT | to_int }} {{ name }} none
+</group>
+
+<group name="admin_accounting_system*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting system {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_system_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting system {{ name }} none
+</group>
+
+<group name="admin_aaa_group*" method="table">
+{{ source_line | DIGIT | to_int }} aaa group server {{ protocol }} {{ name }}
+</group>
+
+<group name="admin_aaa_group_member*" method="table">
+{{ source_line | DIGIT | to_int }} server name {{ name }}
+</group>
+
+<group name="admin_server_key*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} key __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_format*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} key {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_remove_format*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>

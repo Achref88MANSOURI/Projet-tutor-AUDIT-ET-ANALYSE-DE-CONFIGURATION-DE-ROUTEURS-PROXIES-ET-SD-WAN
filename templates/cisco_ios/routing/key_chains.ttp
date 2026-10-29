@@ -1,0 +1,20 @@
+
+<group name="auth_key_chain*" method="table">
+{{ source_line | DIGIT | to_int }} key chain {{ name }}
+</group>
+
+<group name="auth_key_id*" method="table">
+{{ source_line | DIGIT | to_int }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="auth_key_string*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} key-string __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_key_string_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} key-string {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_key_algorithm*" method="table">
+{{ source_line | DIGIT | to_int }} cryptographic-algorithm {{ algorithm }}
+</group>

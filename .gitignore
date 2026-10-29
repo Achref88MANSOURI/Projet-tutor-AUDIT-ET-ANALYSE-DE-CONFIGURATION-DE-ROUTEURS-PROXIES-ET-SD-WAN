@@ -1,0 +1,23 @@
+# Environnements et fichiers locaux
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+cache/
+outputs/
+tests/
+configs/
+baseline/
+dist/
+*.cfg
+*.conf
+*.config
+# Exemples explicitement destinÃ©s au partage
+!resources/*.cfg
+!resources/eigrp/*.cfg
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
