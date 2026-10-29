@@ -1,0 +1,1456 @@
+{
+  "contract_version": "1.0.0",
+  "device": {
+    "vendor": null,
+    "platform": null,
+    "software_version": null,
+    "role": null
+  },
+  "system": {
+    "identity": {
+      "hostname": "LAB-IOSXE17-PE",
+      "domain_name": "lab.example",
+      "banners": null
+    },
+    "management": {
+      "ssh": {
+        "authentication_retries": null,
+        "version_setting": "configured",
+        "enabled": null,
+        "version": 2,
+        "timeout_seconds": null,
+        "session_limit": null
+      },
+      "telnet": {
+        "enabled": null
+      },
+      "http": {
+        "enabled": false,
+        "authentication": "local"
+      },
+      "https": {
+        "enabled": true,
+        "authentication": null
+      },
+      "lines": [
+        {
+          "name": "con 0",
+          "allowed_transports": null,
+          "idle_timeout_seconds": 300,
+          "access_list": null,
+          "authentication": null,
+          "logging_synchronous": true,
+          "privilege_level": null,
+          "stopbits": null,
+          "screen_length": null,
+          "preferred_transports": null
+        },
+        {
+          "name": "vty 0 4",
+          "allowed_transports": [
+            "ssh"
+          ],
+          "idle_timeout_seconds": 600,
+          "access_list": null,
+          "authentication": {
+            "method": "aaa",
+            "method_list": "default"
+          },
+          "logging_synchronous": null,
+          "privilege_level": null,
+          "stopbits": null,
+          "screen_length": null,
+          "preferred_transports": null
+        }
+      ]
+    },
+    "aaa": {
+      "server_groups": null,
+      "enabled": true,
+      "local_users": [
+        {
+          "username": "labadmin",
+          "privilege_level": 15,
+          "credential_configured": true,
+          "credential_type": "password:0"
+        }
+      ],
+      "servers": null,
+      "password_policy": {
+        "minimum_length": null
+      },
+      "authentication_method_lists": [
+        {
+          "privilege_level": null,
+          "local_setting": "configured",
+          "name": "default",
+          "service": "login",
+          "methods": [
+            {
+              "group_protocol": null,
+              "method": "local",
+              "group_reference": null,
+              "native_method": null
+            }
+          ],
+          "accounting_mode": null
+        }
+      ],
+      "authorization_method_lists": [
+        {
+          "privilege_level": null,
+          "local_setting": "configured",
+          "name": "default",
+          "service": "exec",
+          "methods": [
+            {
+              "group_protocol": null,
+              "method": "local",
+              "group_reference": null,
+              "native_method": null
+            }
+          ],
+          "accounting_mode": null
+        }
+      ],
+      "accounting_method_lists": null
+    },
+    "dns": {
+      "lookup_source_interface": null,
+      "views": null,
+      "lookup_enabled": null,
+      "servers": null
+    },
+    "ntp": {
+      "enabled": null,
+      "servers": null,
+      "source_interface": null,
+      "authentication_enabled": null
+    },
+    "logging": {
+      "destinations": null,
+      "source_interface": null,
+      "trap_severity": null,
+      "timestamps": [
+        {
+          "category": "debug",
+          "format": "datetime",
+          "options": [
+            "msec"
+          ]
+        },
+        {
+          "category": "log",
+          "format": "datetime",
+          "options": [
+            "msec"
+          ]
+        }
+      ],
+      "console_logging": false,
+      "login_success_logging": true
+    },
+    "snmp": {
+      "enabled": null,
+      "communities": null,
+      "users": null,
+      "versions": null,
+      "location": null,
+      "contact": null
+    },
+    "flow_monitoring": {
+      "export": null,
+      "aggregation_caches": null,
+      "exporters": null
+    },
+    "ip_services": {
+      "cef_ipv4_enabled": null,
+      "cef_ipv6_enabled": null,
+      "icmp_unreachable_rate_limit_enabled": null,
+      "tcp_synwait_seconds": null,
+      "broadcast_forwarding_protocols": null,
+      "source_routing": null,
+      "ipv6_unicast_routing": null,
+      "password_encryption_service": null
+    },
+    "file_transfer": {
+      "tftp": {
+        "source_interface": null
+      }
+    },
+    "config_archive": {
+      "declared": null,
+      "config_logging": {
+        "declared": null,
+        "hidekeys": null
+      }
+    },
+    "call_home": {
+      "declared": true,
+      "enabled": true,
+      "profiles": [
+        {
+          "name": "CiscoTAC-1",
+          "active": true,
+          "transport_methods": [
+            "http"
+          ]
+        }
+      ]
+    },
+    "boot": {
+      "configuration_register": null
+    }
+  },
+  "interfaces": [
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "Loopback0",
+      "kind": "loopback",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "PE-ROUTER-ID",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": null,
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "1.1.1.1",
+            "prefix_length": 32,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "Loopback1",
+      "kind": "loopback",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "AS-PATH-PREPEND-PRIVATE-TEST",
+      "admin_enabled": null,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": null,
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "10.250.1.1",
+            "prefix_length": 32,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "Loopback2",
+      "kind": "loopback",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "AS-PATH-PREPEND-PUBLIC-TEST",
+      "admin_enabled": null,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": null,
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "10.250.2.2",
+            "prefix_length": 32,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "Loopback3",
+      "kind": "loopback",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "AS-PATH-PASS-THROUGH-TEST",
+      "admin_enabled": null,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": null,
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "10.250.3.3",
+            "prefix_length": 32,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet1",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "BACKBONE-TO-P1",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": "auto",
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": true,
+      "pim_mode": null,
+      "isis_process": "CORE",
+      "isis_network_type": "point-to-point",
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": false,
+      "mop_sysid": false,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": null,
+        "unnumbered_interface": "Loopback0"
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet2",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "BACKBONE-TO-P2",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": "auto",
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": true,
+      "pim_mode": null,
+      "isis_process": "CORE",
+      "isis_network_type": "point-to-point",
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": false,
+      "mop_sysid": false,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": null,
+        "unnumbered_interface": "Loopback0"
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet3",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "CUSTOMER-A-L3VPN-ACCESS",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": "CUSTOMER_A",
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": "auto",
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "10.0.0.2",
+            "prefix_length": 30,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet4",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "CUSTOMER-B-L3VPN-ACCESS",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": "CUSTOMER_B",
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": "auto",
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "10.0.0.6",
+            "prefix_length": 30,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet6",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "EBGP-TRANSIT-IPv4",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": null,
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": "auto",
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": null,
+        "addresses": [
+          {
+            "address": "198.51.100.1",
+            "prefix_length": 30,
+            "secondary": false
+          }
+        ],
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    },
+    {
+      "bandwidth_kbps": null,
+      "delay_tens_of_microseconds": null,
+      "removed_metric_settings": null,
+      "name": "GigabitEthernet7",
+      "kind": "physical",
+      "parent_interface": null,
+      "subinterface_index": null,
+      "description": "VRF-MGMT-DHCP",
+      "admin_enabled": true,
+      "mtu": null,
+      "vrf": "MGMT",
+      "lag": null,
+      "acl_ingress": null,
+      "acl_egress": null,
+      "pim_bsr_border": null,
+      "sap_listen_enabled": null,
+      "ethernet": {
+        "speed_mode": null,
+        "speed_bps": null,
+        "duplex": null,
+        "negotiation": null,
+        "media": null
+      },
+      "encapsulation": null,
+      "tcp_mss": null,
+      "proxy_arp": null,
+      "redirects": null,
+      "keepalive_enabled": null,
+      "mpls_enabled": null,
+      "pim_mode": null,
+      "isis_process": null,
+      "isis_network_type": null,
+      "ospf_network_type": null,
+      "ospf_bindings": null,
+      "flow_directions": null,
+      "cdp_enabled": null,
+      "mop_enabled": null,
+      "mop_sysid": null,
+      "ipv4": {
+        "assignment_method": "dhcp",
+        "addresses": null,
+        "unnumbered_interface": null
+      },
+      "ipv6": {
+        "enabled": null,
+        "addresses": null
+      }
+    }
+  ],
+  "interface_aggregations": null,
+  "network_instances": [
+    {
+      "name": "CUSTOMER_A",
+      "kind": "L3VRF",
+      "route_distinguisher": "500:1",
+      "route_targets_import": null,
+      "route_targets_export": null,
+      "description": null,
+      "address_families": [
+        {
+          "afi": "ipv4",
+          "safi": null,
+          "route_targets_import": [
+            "100:100"
+          ],
+          "route_targets_export": [
+            "100:100"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CUSTOMER_B",
+      "kind": "L3VRF",
+      "route_distinguisher": "500:2",
+      "route_targets_import": null,
+      "route_targets_export": null,
+      "description": null,
+      "address_families": [
+        {
+          "afi": "ipv4",
+          "safi": null,
+          "route_targets_import": [
+            "200:200"
+          ],
+          "route_targets_export": [
+            "200:200"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MGMT",
+      "kind": "L3VRF",
+      "route_distinguisher": "500:99",
+      "route_targets_import": null,
+      "route_targets_export": null,
+      "description": null,
+      "address_families": [
+        {
+          "afi": "ipv4",
+          "safi": null,
+          "route_targets_import": null,
+          "route_targets_export": null
+        }
+      ]
+    }
+  ],
+  "routing": {
+    "eigrp": null,
+    "eigrp_interfaces": null,
+    "key_chains": null,
+    "interface_authentication": null,
+    "static_routes": null,
+    "bgp": [
+      {
+        "local_as": 500,
+        "network_instance": null,
+        "router_id": null,
+        "networks": [
+          {
+            "prefix": "10.250.1.1/32",
+            "afi": "ipv4",
+            "safi": null,
+            "network_instance": null,
+            "native_safi": null
+          },
+          {
+            "prefix": "10.250.2.2/32",
+            "afi": "ipv4",
+            "safi": null,
+            "network_instance": null,
+            "native_safi": null
+          },
+          {
+            "prefix": "10.250.3.3/32",
+            "afi": "ipv4",
+            "safi": null,
+            "network_instance": null,
+            "native_safi": null
+          }
+        ],
+        "log_neighbor_changes": true,
+        "compare_med": null,
+        "deterministic_med": null,
+        "default_ipv4_unicast": null,
+        "synchronization": null,
+        "auto_summary": null,
+        "enforce_first_as": null,
+        "dampening": null,
+        "additional_paths_selection": null,
+        "additional_paths_send": null,
+        "additional_paths_receive": null,
+        "maximum_paths": null,
+        "aggregates": null,
+        "redistributions": [
+          {
+            "protocol": "ospf",
+            "process": "1",
+            "subnets": null,
+            "route_map": null,
+            "afi": "ipv4",
+            "safi": null,
+            "network_instance": "CUSTOMER_A",
+            "native_safi": null
+          },
+          {
+            "protocol": "ospf",
+            "process": "2",
+            "subnets": null,
+            "route_map": null,
+            "afi": "ipv4",
+            "safi": null,
+            "network_instance": "CUSTOMER_B",
+            "native_safi": null
+          }
+        ],
+        "neighbors": [
+          {
+            "peer": "3.3.3.3",
+            "kind": "neighbor",
+            "remote_as": 500,
+            "description": null,
+            "enabled": null,
+            "update_source": "Loopback0",
+            "active": null,
+            "route_reflector_client": null,
+            "next_hop_self": null,
+            "send_community": null,
+            "import_policies": null,
+            "export_policies": null,
+            "inherited_group": null,
+            "additional_paths_advertise_selection": null,
+            "allowas_in": null,
+            "local_as": null,
+            "authentication": null
+          },
+          {
+            "peer": "198.51.100.2",
+            "kind": "neighbor",
+            "remote_as": 64510,
+            "description": null,
+            "enabled": null,
+            "update_source": null,
+            "active": null,
+            "route_reflector_client": null,
+            "next_hop_self": null,
+            "send_community": null,
+            "import_policies": null,
+            "export_policies": null,
+            "inherited_group": null,
+            "additional_paths_advertise_selection": null,
+            "allowas_in": null,
+            "local_as": null,
+            "authentication": null
+          }
+        ],
+        "peer_groups": null,
+        "address_families": [
+          {
+            "auto_summary": null,
+            "synchronization": null,
+            "afi": "vpnv4",
+            "safi": null,
+            "peers": [
+              {
+                "peer": "3.3.3.3",
+                "kind": "neighbor",
+                "remote_as": null,
+                "description": null,
+                "enabled": null,
+                "update_source": null,
+                "active": true,
+                "route_reflector_client": null,
+                "next_hop_self": null,
+                "send_community": "extended",
+                "import_policies": null,
+                "export_policies": null,
+                "inherited_group": null,
+                "additional_paths_advertise_selection": null,
+                "allowas_in": null,
+                "local_as": null,
+                "authentication": null
+              }
+            ],
+            "dampening": null,
+            "additional_paths_selection": null,
+            "additional_paths_send": null,
+            "additional_paths_receive": null,
+            "maximum_paths": null,
+            "network_instance": null,
+            "native_safi": null
+          },
+          {
+            "auto_summary": null,
+            "synchronization": null,
+            "afi": "ipv4",
+            "safi": null,
+            "peers": [
+              {
+                "peer": "198.51.100.2",
+                "kind": "neighbor",
+                "remote_as": null,
+                "description": null,
+                "enabled": null,
+                "update_source": null,
+                "active": true,
+                "route_reflector_client": null,
+                "next_hop_self": null,
+                "send_community": null,
+                "import_policies": null,
+                "export_policies": [
+                  "AS-PREPEND-TEST"
+                ],
+                "inherited_group": null,
+                "additional_paths_advertise_selection": null,
+                "allowas_in": null,
+                "local_as": null,
+                "authentication": null
+              }
+            ],
+            "dampening": null,
+            "additional_paths_selection": null,
+            "additional_paths_send": null,
+            "additional_paths_receive": null,
+            "maximum_paths": null,
+            "network_instance": null,
+            "native_safi": null
+          },
+          {
+            "auto_summary": null,
+            "synchronization": null,
+            "afi": "ipv4",
+            "safi": null,
+            "peers": null,
+            "dampening": null,
+            "additional_paths_selection": null,
+            "additional_paths_send": null,
+            "additional_paths_receive": null,
+            "maximum_paths": null,
+            "network_instance": "CUSTOMER_A",
+            "native_safi": null
+          },
+          {
+            "auto_summary": null,
+            "synchronization": null,
+            "afi": "ipv4",
+            "safi": null,
+            "peers": null,
+            "dampening": null,
+            "additional_paths_selection": null,
+            "additional_paths_send": null,
+            "additional_paths_receive": null,
+            "maximum_paths": null,
+            "network_instance": "CUSTOMER_B",
+            "native_safi": null
+          }
+        ]
+      }
+    ],
+    "ospf": [
+      {
+        "identifier": "1",
+        "network_instance": "CUSTOMER_A",
+        "router_id": "1.1.1.1",
+        "network_statements": [
+          {
+            "area": "0.0.0.0",
+            "prefix": "10.0.0.0/30",
+            "address": "10.0.0.0",
+            "wildcard_mask": "0.0.0.3"
+          }
+        ],
+        "passive_interfaces": null,
+        "version": 2,
+        "areas": null,
+        "virtual_links": null,
+        "log_adjacency_changes": null,
+        "redistributions": [
+          {
+            "protocol": "bgp",
+            "process": "500",
+            "subnets": null,
+            "route_map": null,
+            "afi": null,
+            "safi": null,
+            "network_instance": null,
+            "native_safi": null
+          }
+        ],
+        "default_origination": null,
+        "passive_default": null,
+        "non_passive_interfaces": null,
+        "interface_settings": null
+      },
+      {
+        "identifier": "2",
+        "network_instance": "CUSTOMER_B",
+        "router_id": "1.1.1.1",
+        "network_statements": [
+          {
+            "area": "0.0.0.0",
+            "prefix": "10.0.0.4/30",
+            "address": "10.0.0.4",
+            "wildcard_mask": "0.0.0.3"
+          }
+        ],
+        "passive_interfaces": null,
+        "version": 2,
+        "areas": null,
+        "virtual_links": null,
+        "log_adjacency_changes": null,
+        "redistributions": [
+          {
+            "protocol": "bgp",
+            "process": "500",
+            "subnets": null,
+            "route_map": null,
+            "afi": null,
+            "safi": null,
+            "network_instance": null,
+            "native_safi": null
+          }
+        ],
+        "default_origination": null,
+        "passive_default": null,
+        "non_passive_interfaces": null,
+        "interface_settings": null
+      }
+    ],
+    "isis": [
+      {
+        "name": "CORE",
+        "declared": null,
+        "net": "49.0001.0000.0000.0001.00",
+        "passive_interfaces": [
+          "Loopback0"
+        ],
+        "network_instance": null,
+        "authentication": null,
+        "interface_settings": null,
+        "redistributions": null
+      }
+    ],
+    "rip": null
+  },
+  "routing_policies": {
+    "route_maps": [
+      {
+        "name": "AS-PREPEND-TEST",
+        "statements": [
+          {
+            "identifier": "10",
+            "decision": "accept",
+            "matches": [
+              {
+                "kind": "prefix_set_ipv4",
+                "name": "PREPEND-PRIVATE"
+              }
+            ],
+            "actions": [
+              {
+                "kind": "as_path_prepend",
+                "as_numbers": [
+                  65101,
+                  65101
+                ]
+              }
+            ],
+            "unparsed_clauses": null
+          },
+          {
+            "identifier": "20",
+            "decision": "accept",
+            "matches": [
+              {
+                "kind": "prefix_set_ipv4",
+                "name": "PREPEND-PUBLIC"
+              }
+            ],
+            "actions": [
+              {
+                "kind": "as_path_prepend",
+                "as_numbers": [
+                  25
+                ]
+              }
+            ],
+            "unparsed_clauses": null
+          },
+          {
+            "identifier": "30",
+            "decision": "accept",
+            "matches": [
+              {
+                "kind": "prefix_set_ipv4",
+                "name": "NO-PREPEND"
+              }
+            ],
+            "actions": null,
+            "unparsed_clauses": null
+          }
+        ]
+      }
+    ],
+    "prefix_lists": [
+      {
+        "name": "PREPEND-PRIVATE",
+        "family": "ipv4",
+        "entries": [
+          {
+            "sequence": 5,
+            "action": "permit",
+            "prefix": "10.250.1.1/32",
+            "ge": null,
+            "le": null
+          }
+        ]
+      },
+      {
+        "name": "PREPEND-PUBLIC",
+        "family": "ipv4",
+        "entries": [
+          {
+            "sequence": 5,
+            "action": "permit",
+            "prefix": "10.250.2.2/32",
+            "ge": null,
+            "le": null
+          }
+        ]
+      },
+      {
+        "name": "NO-PREPEND",
+        "family": "ipv4",
+        "entries": [
+          {
+            "sequence": 5,
+            "action": "permit",
+            "prefix": "10.250.3.3/32",
+            "ge": null,
+            "le": null
+          }
+        ]
+      }
+    ],
+    "community_lists": null,
+    "as_path_lists": null
+  },
+  "security": {
+    "acls": [
+      {
+        "name": "SIP",
+        "family": "ipv4",
+        "entries": [
+          {
+            "sequence": 10,
+            "action": "permit",
+            "protocol": "udp",
+            "source": {
+              "kind": "any",
+              "address_family": null
+            },
+            "destination": {
+              "kind": "any",
+              "address_family": null
+            },
+            "source_port": null,
+            "destination_port": {
+              "operator": "eq",
+              "start": 5060,
+              "end": null
+            },
+            "log": null,
+            "description": null,
+            "log_input": null,
+            "unparsed_clauses": null
+          },
+          {
+            "sequence": 20,
+            "action": "permit",
+            "protocol": "tcp",
+            "source": {
+              "kind": "any",
+              "address_family": null
+            },
+            "destination": {
+              "kind": "any",
+              "address_family": null
+            },
+            "source_port": null,
+            "destination_port": {
+              "operator": "eq",
+              "start": 5060,
+              "end": null
+            },
+            "log": null,
+            "description": null,
+            "log_input": null,
+            "unparsed_clauses": null
+          },
+          {
+            "sequence": 30,
+            "action": "permit",
+            "protocol": "tcp",
+            "source": {
+              "kind": "any",
+              "address_family": null
+            },
+            "destination": {
+              "kind": "any",
+              "address_family": null
+            },
+            "source_port": null,
+            "destination_port": {
+              "operator": "eq",
+              "start": 5061,
+              "end": null
+            },
+            "log": null,
+            "description": null,
+            "log_input": null,
+            "unparsed_clauses": null
+          }
+        ]
+      },
+      {
+        "name": "VOIP",
+        "family": "ipv4",
+        "entries": [
+          {
+            "sequence": 10,
+            "action": "permit",
+            "protocol": "udp",
+            "source": {
+              "kind": "any",
+              "address_family": null
+            },
+            "destination": {
+              "kind": "any",
+              "address_family": null
+            },
+            "source_port": null,
+            "destination_port": {
+              "operator": "range",
+              "start": 16384,
+              "end": 32767
+            },
+            "log": null,
+            "description": null,
+            "log_input": null,
+            "unparsed_clauses": null
+          }
+        ]
+      }
+    ],
+    "acl_attachments": null
+  },
+  "nat": {
+    "rules": null,
+    "interface_roles": null
+  },
+  "vpn": {
+    "tunnels": null,
+    "crypto": null
+  },
+  "qos": {
+    "attachments": [
+      {
+        "policy_name": "VOICE-QOS-CUST-A",
+        "interface_name": "GigabitEthernet3",
+        "direction": "ingress"
+      }
+    ],
+    "class_maps": [
+      {
+        "name": "VOICE",
+        "match_mode": "match-all",
+        "matches": [
+          {
+            "kind": "dscp",
+            "value": "ef"
+          }
+        ]
+      },
+      {
+        "name": "SIP-CUST-A",
+        "match_mode": "match-all",
+        "matches": [
+          {
+            "kind": "acl",
+            "value": "SIP"
+          }
+        ]
+      },
+      {
+        "name": "SIP",
+        "match_mode": "match-all",
+        "matches": [
+          {
+            "kind": "dscp",
+            "value": "cs3"
+          }
+        ]
+      },
+      {
+        "name": "VIDEO",
+        "match_mode": "match-all",
+        "matches": [
+          {
+            "kind": "dscp",
+            "value": "af41"
+          }
+        ]
+      },
+      {
+        "name": "VOIP-CUST-A",
+        "match_mode": "match-all",
+        "matches": [
+          {
+            "kind": "acl",
+            "value": "VOIP"
+          }
+        ]
+      }
+    ],
+    "policy_maps": [
+      {
+        "name": "VOICE-QOS-CUST-A",
+        "classes": [
+          {
+            "name": "VOIP-CUST-A",
+            "actions": [
+              {
+                "kind": "set_dscp",
+                "value": "ef"
+              }
+            ]
+          },
+          {
+            "name": "SIP-CUST-A",
+            "actions": [
+              {
+                "kind": "set_dscp",
+                "value": "cs3"
+              }
+            ]
+          },
+          {
+            "name": "class-default",
+            "actions": [
+              {
+                "kind": "set_dscp",
+                "value": "default"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "mpls": {
+    "label_protocol": null,
+    "ldp": {
+      "router_id_interface": "Loopback0",
+      "force": null
+    }
+  },
+  "multicast": {
+    "auto_rp": {
+      "listener_configured": null,
+      "discovery_scope": null
+    },
+    "bsr_candidates": null,
+    "rp_candidates": null,
+    "ssm": {
+      "range_selector": null
+    },
+    "msdp": {
+      "peers": null
+    },
+    "routing_enabled": null,
+    "rendezvous_points": null
+  },
+  "pki": {
+    "trustpoints": [
+      {
+        "name": "SLA-TrustPoint",
+        "enrollment": "pkcs12",
+        "revocation_check": "crl",
+        "subject_name": null,
+        "keypair_reference": null
+      },
+      {
+        "name": "TP-self-signed-3925927892",
+        "enrollment": "selfsigned",
+        "revocation_check": "none",
+        "subject_name": "cn=IOS-Self-Signed-Certificate-3925927892",
+        "keypair_reference": "TP-self-signed-3925927892"
+      }
+    ],
+    "certificate_chains": null
+  },
+  "extensions": {
+    "cisco": null
+  }
+}

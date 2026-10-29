@@ -16,6 +16,9 @@ dist/
 # Exemples explicitement destinÃ©s au partage
 !resources/*.cfg
 !resources/eigrp/*.cfg
+# Deux fixtures synthétiques documentées, ajoutées pour les démonstrations
+!Test/01_IOS15_EDGE_MULTIPROTOCOL_adapte.cfg
+!Test/02_IOSXE17_PE_L3VPN_QOS_adapte.cfg
 *.log
 .env
 .env.*

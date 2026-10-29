@@ -9,8 +9,7 @@ Ces fichiers servent à tester le parsing et la normalisation ; les marqueurs de
 Dans le Web, importer un des fichiers `.cfg`. En CLI, depuis la racine du dépôt :
 
 ```powershell
-.\.venv\Scripts\python.exe cli.py .
-esources\C0031_CE1.cfg --output .\outputs\demo --os-family iosxe
+.\.venv\Scripts\python.exe cli.py .\resources\C0031_CE1.cfg --output .\outputs\demo --os-family iosxe
 ```
 
 | Fichier | Fonctions observées |
