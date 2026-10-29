@@ -143,3 +143,12 @@ Les fichiers [EIGRP distribués](../resources/eigrp/README.md) s'importent avec 
 sélecteur que les autres configurations. Ouvrir `routing`, puis `eigrp` dans
 l'arborescence pour examiner les processus et leurs AF/topologies. Le frontend
 affiche le contrat synchronisé et utilise le même backend que le CLI.
+
+## Mise à jour du moteur et des modèles
+
+Le backend utilise les correctifs distribués. Une définition reconnue mais retirée
+comme incomplète et encore référencée entraîne un refus d’export, traité comme un
+échec de normalisation. Un simple objet ou champ non couvert ne doit pas être
+assimilé à une valeur désactivée. Après mise à jour, arrêter le serveur avec Ctrl+C
+et le relancer pour charger le schéma actuel. Voir le
+[bilan de synchronisation](../docs/MISE_A_JOUR_NORMALISATION.md).

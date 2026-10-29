@@ -117,3 +117,11 @@ et af-interface. Les réglages classiques d'interface conservent leur référenc
 sans création d'un processus manquant. Les métriques d'interface bandwidth/delay
 et la métrique composite des politiques restent des objets ou champs distincts.
 Voir [la documentation EIGRP](../docs/eigrp/README.md).
+
+## Protection des définitions référencées
+
+Après projection, le moteur refuse l’export lorsqu’une définition connue a été
+retirée comme incomplète tout en restant référencée dans le document publié.
+`IncompleteReferenceError` distingue ce cas d’une référence externe dont la cible
+n’est pas fournie. Les politiques partielles ne sont pas élargies pour produire
+un JSON. Voir [le bilan](../docs/MISE_A_JOUR_NORMALISATION.md).

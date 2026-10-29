@@ -806,5 +806,14 @@
   },
   "policy_set_eigrp_metric": {
     "scope": "root:route-map"
+  },
+  "advanced_qos_match_precedence_both": {
+    "scope": "root:class-map"
+  },
+  "services_version": {
+    "scope": "global"
+  },
+  "services_password_encryption_on": {
+    "scope": "global"
   }
 }

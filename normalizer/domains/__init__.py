@@ -10,6 +10,12 @@ FEATURE_RULES = {
     'catalogue_call_home', 'catalogue_call_home_on', 'catalogue_call_home_profile', 'catalogue_call_home_active',
     'catalogue_call_home_destination', 'catalogue_pim_autorp', 'catalogue_pim_bsr', 'catalogue_pim_discovery',
     'catalogue_pim_rp_candidate', 'catalogue_pim_ssm', 'catalogue_msdp_peer',
+    'catalogue_cache_entries', 'catalogue_cache_timeout', 'catalogue_cache_enable',
+    'catalogue_flow_aggregation', 'catalogue_boot_system', 'catalogue_license',
+    'catalogue_ifindex', 'catalogue_scheduler', 'catalogue_scheduler_none',
+    'catalogue_no_cdp_log', 'catalogue_upgrade', 'catalogue_ioam',
+    'catalogue_bgp_community_format', 'catalogue_call_home_contact',
+    'catalogue_qfp', 'catalogue_punt',
 }
 FAMILIES = {'interfaces': interfaces, 'bgp': bgp, 'ospf': ospf, 'eigrp': eigrp, 'routes': static_routes,
     'vrf': vrf, 'prefix': prefix_lists, 'acl_standard': acl, 'acl_extended': acl,

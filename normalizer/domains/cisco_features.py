@@ -1,6 +1,7 @@
 """Cisco archive, Call Home, multicast, NetFlow, MPLS, IS-IS."""
 from .routing import authentication
 from ipaddress import ip_address
+import re
 from normalizer.common.collections import collection
 from schemas import router_contract_v1 as s
 
@@ -25,6 +26,10 @@ def _configured_feature(state,r):
             put(obj.config_logging, 'declared', v['declared'], 'system/config_archive/config_logging')
         elif rule == 'catalogue_archive_hide' and contexts == ['archive', 'log config']:
             put(obj.config_logging, 'hidekeys', v['enabled'], 'system/config_archive/config_logging')
+        return True
+    if rule == 'catalogue_call_home_contact':
+        if contexts == ['call-home'] and re.fullmatch(r'[^\s@]+@[^\s@]+', v['email']):
+            put(state.c.system.call_home, 'contact_email', v['email'], 'system/call_home')
         return True
     if rule in ('catalogue_call_home', 'catalogue_call_home_on', 'catalogue_call_home_profile', 'catalogue_call_home_active', 'catalogue_call_home_destination'):
         obj = state.c.system.call_home
@@ -61,18 +66,33 @@ def _configured_feature(state,r):
                     collection(profile, 'transport_methods').append(v['transport'])
                 bind(path + '/transport_methods')
         return True
-    if rule == 'catalogue_cache_export':
-        if not root or root['rule'] != 'catalogue_flow_aggregation' or len(contexts) != 1:
+    if rule in ('catalogue_flow_aggregation', 'catalogue_cache_entries', 'catalogue_cache_timeout', 'catalogue_cache_enable', 'catalogue_cache_export'):
+        parent = r if rule == 'catalogue_flow_aggregation' else root
+        if not parent or parent['rule'] != 'catalogue_flow_aggregation':
+            return True
+        if (rule == 'catalogue_flow_aggregation' and contexts) or (rule != 'catalogue_flow_aggregation' and len(contexts) != 1):
+            return True
+        if parent['values']['aggregation'] != 'as':
             return True
         caches = collection(state.c.system.flow_monitoring, 'aggregation_caches')
-        identity = root['values']['aggregation']
+        identity = parent['values']['aggregation']
         obj = next((x for x in caches if x.aggregation == identity), None)
         if obj is None:
             obj = s.AggregationCache(aggregation=identity)
             caches.append(obj)
-        state.bind(f'system/flow_monitoring/aggregation_caches/{caches.index(obj)}/aggregation',root['source_line'],['aggregation'])
-        collection(obj, 'destinations').append(s.Collector(address=v['address'], port=v['port']))
-        bind(f'system/flow_monitoring/aggregation_caches/{caches.index(obj)}/destinations')
+        path = f'system/flow_monitoring/aggregation_caches/{caches.index(obj)}'
+        state.bind(path + '/aggregation', parent['source_line'], ['aggregation'])
+        if rule == 'catalogue_cache_export':
+            collection(obj, 'destinations').append(s.Collector(address=v['address'], port=v['port']))
+            bind(path + '/destinations')
+        elif rule == 'catalogue_cache_entries':
+            put(obj, 'entries', v['entries'], path)
+        elif rule == 'catalogue_cache_enable':
+            put(obj, 'enabled', v['enabled'], path)
+        elif rule == 'catalogue_cache_timeout':
+            field = {'active': 'timeout_active_minutes', 'inactive': 'timeout_inactive_seconds'}.get(v['type'])
+            if field:
+                put(obj, field, v['timeout'], path)
         return True
     if rule in ('catalogue_pim_autorp', 'catalogue_pim_bsr', 'catalogue_pim_discovery', 'catalogue_pim_rp_candidate', 'catalogue_pim_ssm', 'catalogue_msdp_peer'):
         if contexts:
@@ -96,6 +116,43 @@ def _configured_feature(state,r):
         return True
     if contexts:
         return False
+    if rule == 'catalogue_license':
+        # Retain the explicit platform PID; never bind the serial number.
+        state.assign(state.c.device, 'platform', v['pid'], 'device', line, ['pid'])
+        return True
+    if rule == 'catalogue_boot_system':
+        location = v['image']
+        # This mapping covers local images, not remote URLs carrying credentials.
+        if '://' in location or '@' in location:
+            return True
+        device = location.split(':', 1)[0] if re.match(r'^[A-Za-z][\w-]*:', location) else None
+        collection(state.c.system.boot, 'images').append(s.BootImage(location=location, source_device=device))
+        bind('system/boot/images')
+        return True
+    if rule == 'catalogue_ifindex':
+        put(state.c.system.snmp, 'ifindex_persistent', v['enabled'], 'system/snmp')
+        return True
+    native = {'catalogue_no_cdp_log': ('cdp_log_mismatch_duplex_enabled', v.get('enabled')),
+        'catalogue_qfp': ('qfp_utilization_monitor_load', v.get('percent')),
+        'catalogue_punt': ('punt_keepalive_kernel_core_disabled', v.get('disabled')),
+        'catalogue_ioam': ('ipv6_ioam_timestamp_enabled', v.get('enabled')),
+        'catalogue_bgp_community_format': ('bgp_community_new_format', v.get('enabled'))}
+    if rule in native or rule in ('catalogue_scheduler', 'catalogue_scheduler_none', 'catalogue_upgrade'):
+        if rule == 'catalogue_upgrade' and v['mode'] != 'auto':
+            return True
+        if state.c.extensions.cisco is None:
+            state.c.extensions.cisco = s.CiscoExtensions()
+        obj = state.c.extensions.cisco
+        if rule in native:
+            field, value = native[rule]
+            put(obj, field, value, 'extensions/cisco')
+        elif rule == 'catalogue_upgrade':
+            put(obj, 'fpd_auto_upgrade', True, 'extensions/cisco')
+        else:
+            settings = s.SchedulerAllocation(configured=rule == 'catalogue_scheduler',
+                interrupt_microseconds=v.get('interrupt'), process_microseconds=v.get('process'))
+            put(obj, 'scheduler_allocation', settings, 'extensions/cisco')
+        return True
     direct = {'catalogue_password_minimum': (state.c.system.aaa.password_policy, 'minimum_length', v.get('length'), 'system/aaa/password_policy'), 'catalogue_cef': (state.c.system.ip_services, 'cef_ipv4_enabled', v.get('enabled'), 'system/ip_services'), 'catalogue_cef6': (state.c.system.ip_services, 'cef_ipv6_enabled', v.get('enabled'), 'system/ip_services'), 'catalogue_no_cef6': (state.c.system.ip_services, 'cef_ipv6_enabled', v.get('enabled'), 'system/ip_services'), 'catalogue_icmp_no_limit': (state.c.system.ip_services, 'icmp_unreachable_rate_limit_enabled', v.get('limited'), 'system/ip_services'), 'catalogue_synwait': (state.c.system.ip_services, 'tcp_synwait_seconds', v.get('seconds'), 'system/ip_services'), 'catalogue_domain_source': (state.c.system.dns, 'lookup_source_interface', v.get('interface'), 'system/dns'), 'catalogue_tftp_source': (state.c.system.file_transfer.tftp, 'source_interface', v.get('interface'), 'system/file_transfer/tftp'), 'catalogue_config_register': (state.c.system.boot, 'configuration_register', v.get('register'), 'system/boot')}
     if rule in direct:
         put(*direct[rule])
@@ -128,10 +185,11 @@ def _native_feature(state,r):
         name = root['values'].get('process')
         obj = next((o for o in items if o.name == name), None)
         if obj is None:
-            obj = s.IsisProcess(name=name, declared=True if name is None else None)
+            obj = s.IsisProcess(name=name, declared=True)
             items.append(obj)
         path = f'routing/isis/{items.index(obj)}'
         if rule in ('advanced_isis', 'advanced_isis_unnamed'):
+            obj.declared = True
             state.bind(path, line, list(v))
         elif rule == 'advanced_isis_net':
             state.assign(obj, 'net', v['net'], path, line, list(v))

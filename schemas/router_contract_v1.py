@@ -208,6 +208,7 @@ class CallHomeProfile(Contract):
 class CallHome(Contract):
     declared: StrictBool | None = None
     enabled: StrictBool | None = None
+    contact_email: Name | None = None
     profiles: list[CallHomeProfile] | None = None
 
 
@@ -256,6 +257,10 @@ class Collector(Contract):
 class AggregationCache(Contract):
     aggregation: Literal['as']
     destinations: list[Collector] | None = None
+    entries: Annotated[StrictInt, Field(ge=1024, le=2000000)] | None = None
+    enabled: StrictBool | None = None
+    timeout_active_minutes: Annotated[StrictInt, Field(ge=1, le=60)] | None = None
+    timeout_inactive_seconds: Annotated[StrictInt, Field(ge=10, le=600)] | None = None
 
 
 class AutoRP(Contract):
@@ -316,8 +321,14 @@ class VirtualService(Contract):
     declared: StrictBool
 
 
+class BootImage(Contract):
+    location: Name
+    source_device: Name | None = None
+
+
 class Boot(Contract):
     configuration_register: StrictStr | None = Field(default=None, pattern='^0x[0-9A-Fa-f]{1,4}$')
+    images: list[BootImage] | None = None
 
 
 class Ethernet(Contract):
@@ -483,6 +494,7 @@ class FlowExport(Contract):
 class QoSMatch(Contract):
     kind: Literal['dscp', 'precedence', 'protocol', 'acl']
     value: StrictStr
+    address_family: Literal['ipv4', 'ipv6', 'ipv4_ipv6'] | None = None
 
 
 class QoSAction(Contract):
@@ -649,6 +661,7 @@ class Authentication(Contract):
 class RoutingPolicyMatch(Contract):
     kind: Literal['acl', 'prefix_set_ipv4', 'prefix_set_ipv6', 'community']
     name: StrictStr = Field(min_length=1)
+    exact_match: StrictBool | None = None
 
 
 class NumericPolicyAction(Contract):
@@ -810,7 +823,14 @@ class ACLEntry(Contract):
     log: StrictBool | None = None
     description: StrictStr | None = None
     log_input: StrictBool | None = None
+    tcp_established: StrictBool | None = None
     unparsed_clauses: list[NativeClause] | None = None
+
+    @model_validator(mode='after')
+    def established_requires_tcp(self):
+        if self.tcp_established is not None and self.protocol not in ('tcp', '6'):
+            raise ValueError('Established is a TCP flag criterion')
+        return self
 
 
 class ACLSet(Contract):
@@ -985,6 +1005,7 @@ class SNMP(Contract):
     versions: list[Literal['1', '2c', '3']] | None = None
     location: StrictStr | None = None
     contact: StrictStr | None = None
+    ifindex_persistent: StrictBool | None = None
 
 
 class NTP(Contract):
@@ -1243,9 +1264,28 @@ class VPN(Contract):
     crypto: Crypto | None = None
 
 
+class SchedulerAllocation(Contract):
+    configured: StrictBool
+    interrupt_microseconds: Annotated[StrictInt, Field(ge=400, le=60000)] | None = None
+    process_microseconds: Annotated[StrictInt, Field(ge=100, le=4000)] | None = None
+
+    @model_validator(mode='after')
+    def disabled_has_no_times(self):
+        if self.configured is False and (self.interrupt_microseconds is not None or self.process_microseconds is not None):
+            raise ValueError('Removed scheduler allocation has no configured times')
+        return self
+
+
 class CiscoExtensions(Contract):
     extension_version: Literal['1.0.0'] = '1.0.0'
     virtual_services: list[VirtualService] | None = None
+    scheduler_allocation: SchedulerAllocation | None = None
+    cdp_log_mismatch_duplex_enabled: StrictBool | None = None
+    fpd_auto_upgrade: StrictBool | None = None
+    ipv6_ioam_timestamp_enabled: StrictBool | None = None
+    bgp_community_new_format: StrictBool | None = None
+    qfp_utilization_monitor_load: Annotated[StrictInt, Field(ge=0, le=65535)] | None = None
+    punt_keepalive_kernel_core_disabled: StrictBool | None = None
 
 
 class Extensions(Contract):

@@ -20,7 +20,7 @@ détaille chaque étape, les valeurs attendues et le dépannage. Après installa
 de Git et Python 3.12 x64, utiliser les commandes suivantes :
 
 ```powershell
-$DepotGitHub = 'https://github.com/Achref88MANSOURI/-Projet-tutor-AUDIT-ET-ANALYSE-DE-CONFIGURATION-DE-ROUTEURS-PROXIES-ET-SD-WAN.git'
+$DepotGitHub = 'https://github.com/Achref88MANSOURI/Projet-tutor-AUDIT-ET-ANALYSE-DE-CONFIGURATION-DE-ROUTEURS-PROXIES-ET-SD-WAN.git'
 git clone $DepotGitHub normaliseur-routeurs
 Set-Location -LiteralPath '.\normaliseur-routeurs'
 .\setup.ps1
@@ -296,8 +296,8 @@ et leurs résultats JSON conservés pour lecture et comparaison. Les fichiers de
 
 Le dépôt fournit **25 fichiers CFG** : les **20 configurations de corpus** choisies
 précédemment, **3 exemples EIGRP** dans `resources/`, et **2 configurations adaptées**
-dans `Test/`. Les deux JSON fournis dans `Test/` sont des résultats de référence à
-consulter ; ils ne constituent pas deux configurations supplémentaires.
+dans `Test/`. Les deux JSON fournis dans `Test/` sont des résultats régénérés avec le moteur
+actuel, à consulter ; ils ne constituent pas deux configurations supplémentaires.
 
 ### Les 20 configurations de corpus
 
@@ -367,9 +367,10 @@ contrôles ciblés**, sans verdict CIS/STIG ou preuve de fonctionnement réseau.
 commandes. Les références, valeurs et cardinalités effectivement comparées sont
 détaillées dans le rapport.
 
-Les nuances conservées incluent `send_community = command_without_option`, une
-technologie de tunnel `unknown` faute de mode explicite et `routing.isis[0].declared`
-à `null` dans le JSON 02. Les champs de plateforme et l’activation SSH peuvent
+Les nuances conservées incluent `send_community = command_without_option` et une
+technologie de tunnel `unknown` faute de mode explicite. Le JSON 02 actualisé porte
+désormais `routing.isis[0].declared = true` ; la réserve à `null` du rapport fourni
+décrit son ancienne sortie. Les champs de plateforme et l’activation SSH peuvent
 également rester indéterminés. Ces distinctions ne doivent pas être effacées pour
 présenter une couverture artificiellement complète.
 
@@ -450,3 +451,23 @@ prétend pas couvrir toutes les syntaxes de toutes les images Cisco.
 Les modèles et le JSON Schema ont été synchronisés. Les nouvelles propriétés
 peuvent être null en l'absence de commandes reconnues. Le serveur Web doit être
 redémarré après une mise à jour des modèles Python.
+
+## Dernière synchronisation : correctifs de fidélité Cisco
+
+La copie inclut désormais les corrections de `match community`, ACL TCP
+`established`, précédence QoS IPv4/IPv6, versions/PID, boot local, caches NetFlow,
+SNMP, bannières et aires OSPF. Elle inclut également la commande positive
+`service password-encryption`, la déclaration IS-IS et les paramètres QFP/punt
+explicitement configurés.
+
+Une définition reconnue puis retirée comme incomplète ne peut plus rester la
+cible d’une référence publiée : l’export est refusé dans ce cas. Une référence
+externe absente de la source reste conservée sans objet inventé.
+
+Voir le [bilan de synchronisation](docs/MISE_A_JOUR_NORMALISATION.md) et la
+[convention de compatibilité du schéma](schemas/COMPATIBILITE.md). Les deux JSON
+de `Test/` ont été régénérés depuis leurs sources inchangées ; les 233 assertions
+du rapport historique ne sont pas présentées comme une campagne réexécutée.
+
+Les fonctionnalités de commutation L2 et EVPN/L2VPN L2 restent exclues. Redémarrer
+le serveur Web après remplacement du code, puis actualiser le navigateur.

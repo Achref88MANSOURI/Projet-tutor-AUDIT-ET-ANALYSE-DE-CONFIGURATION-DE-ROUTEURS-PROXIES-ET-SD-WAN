@@ -17,7 +17,7 @@ def handle(state,r):
     if rule == 'services_hostname':
         state.assign(system.identity, 'hostname', v['hostname'], 'system/identity', line)
     elif rule == 'services_version':
-        state.structural.add(line)
+        state.assign(state.c.device, 'software_version', v['version'], 'device', line)
     elif rule in ('services_domain', 'services_domain_alt'):
         state.assign(system.identity, 'domain_name', v['domain'], 'system/identity', line)
     elif rule == 'services_dns':
@@ -77,6 +77,7 @@ def handle(state,r):
         'services_source_route_off': ('ip_services', 'source_routing', 'enabled'),
         'services_lookup_off': ('dns', 'lookup_enabled', 'enabled'),
         'services_password_encryption_off': ('ip_services', 'password_encryption_service', 'enabled'),
+        'services_password_encryption_on': ('ip_services', 'password_encryption_service', 'enabled'),
         'services_ipv6_routing': ('ip_services', 'ipv6_unicast_routing', 'enabled'),
     }
     if rule in fields:
@@ -92,7 +93,10 @@ def handle(state,r):
             state.validation[line]['fields']['options'] = 'validated'
         state.bind('system/logging/timestamps', line, list(v))
     elif rule == 'services_banner':
-        collection(state.c.system.identity, 'banners').append(s.Banner(type=v['type']))
+        node = state.nodes[line]
+        # The inventory carries only an explicit presence marker, never banner text.
+        present = getattr(node, 'text_present', None)
+        collection(state.c.system.identity, 'banners').append(s.Banner(type=v['type'], text_present=present))
         state.bind('system/identity/banners', line, list(v))
     elif rule == 'services_http_auth':
         state.assign(system.management.http, 'authentication', v['method'], 'system/management/http', line, list(v))
@@ -116,6 +120,8 @@ def handle(state,r):
             obj = s.CommunityList(name=v['name'],dialect='cisco_expanded_regex')
             collection(state.c.routing_policies, 'community_lists').append(obj)
         collection(obj, 'entries').append(s.CommunityListEntry(action=v['action'], expression=v['expression']))
+        # Retain a native Cisco expression as text, without evaluating it as Python regex.
+        state.validation[line]['fields']['expression'] = 'validated'
         state.bind(f'routing_policies/community_lists/{(state.c.routing_policies.community_lists or []).index(obj)}', line, list(v))
     elif rule.startswith('services_flow_'):
         if system.flow_monitoring.export is None:

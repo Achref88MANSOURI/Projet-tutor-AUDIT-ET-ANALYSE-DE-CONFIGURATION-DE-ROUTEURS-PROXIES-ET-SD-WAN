@@ -29,7 +29,7 @@ hors ligne. Les archives binaires incluses ciblent cette plateforme.
 Le dépôt GitHub du projet peut être récupéré avec les commandes suivantes :
 
 ```powershell
-$DepotGitHub = 'https://github.com/Achref88MANSOURI/-Projet-tutor-AUDIT-ET-ANALYSE-DE-CONFIGURATION-DE-ROUTEURS-PROXIES-ET-SD-WAN.git'
+$DepotGitHub = 'https://github.com/Achref88MANSOURI/Projet-tutor-AUDIT-ET-ANALYSE-DE-CONFIGURATION-DE-ROUTEURS-PROXIES-ET-SD-WAN.git'
 $DossierTravail = Join-Path $env:USERPROFILE 'Documents\Projets'
 
 New-Item -ItemType Directory -Path $DossierTravail -Force | Out-Null
@@ -324,3 +324,18 @@ La préparation est vérifiée dans une copie isolée, avec installation hors li
 parcours CLI, backend Web et validation du contrat. Les tests de développement et
 leurs sorties ne sont pas inclus dans cette distribution ; les essais ci-dessus
 utilisent les exemples livrés.
+
+## Vérifier la version synchronisée du mécanisme
+
+La distribution inclut les derniers correctifs de fidélité Cisco et le schéma
+correspondant. Voir le [bilan](docs/MISE_A_JOUR_NORMALISATION.md). Les JSON de
+`Test/` sont actualisés ; leur rapport accompagne la comparaison initiale et
+précise ses limites historiques.
+
+Après copie de nouveaux fichiers, arrêter le serveur déjà lancé avec Ctrl+C,
+puis relancer `run_ui.ps1` et utiliser Ctrl+F5 dans le navigateur. Pour identifier
+le schéma exact utilisé :
+
+```powershell
+Get-FileHash -LiteralPath .\schemas\router_contract_v1.schema.json -Algorithm SHA256
+```

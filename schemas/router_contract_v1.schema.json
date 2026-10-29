@@ -551,6 +551,18 @@
           "default": null,
           "title": "Log Input"
         },
+        "tcp_established": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tcp Established"
+        },
         "unparsed_clauses": {
           "anyOf": [
             {
@@ -934,6 +946,60 @@
           ],
           "default": null,
           "title": "Destinations"
+        },
+        "entries": {
+          "anyOf": [
+            {
+              "maximum": 2000000,
+              "minimum": 1024,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entries"
+        },
+        "enabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enabled"
+        },
+        "timeout_active_minutes": {
+          "anyOf": [
+            {
+              "maximum": 60,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout Active Minutes"
+        },
+        "timeout_inactive_seconds": {
+          "anyOf": [
+            {
+              "maximum": 600,
+              "minimum": 10,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout Inactive Seconds"
         }
       },
       "required": [
@@ -2547,9 +2613,52 @@
           ],
           "default": null,
           "title": "Configuration Register"
+        },
+        "images": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/BootImage"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Images"
         }
       },
       "title": "Boot",
+      "type": "object"
+    },
+    "BootImage": {
+      "additionalProperties": false,
+      "properties": {
+        "location": {
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        },
+        "source_device": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Device"
+        }
+      },
+      "required": [
+        "location"
+      ],
+      "title": "BootImage",
       "type": "object"
     },
     "BroadcastForwarding": {
@@ -2598,6 +2707,19 @@
           ],
           "default": null,
           "title": "Enabled"
+        },
+        "contact_email": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Contact Email"
         },
         "profiles": {
           "anyOf": [
@@ -2741,6 +2863,91 @@
           ],
           "default": null,
           "title": "Virtual Services"
+        },
+        "scheduler_allocation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SchedulerAllocation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cdp_log_mismatch_duplex_enabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cdp Log Mismatch Duplex Enabled"
+        },
+        "fpd_auto_upgrade": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fpd Auto Upgrade"
+        },
+        "ipv6_ioam_timestamp_enabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ipv6 Ioam Timestamp Enabled"
+        },
+        "bgp_community_new_format": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bgp Community New Format"
+        },
+        "qfp_utilization_monitor_load": {
+          "anyOf": [
+            {
+              "maximum": 65535,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Qfp Utilization Monitor Load"
+        },
+        "punt_keepalive_kernel_core_disabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Punt Keepalive Kernel Core Disabled"
         }
       },
       "title": "CiscoExtensions",
@@ -8820,6 +9027,23 @@
         "value": {
           "title": "Value",
           "type": "string"
+        },
+        "address_family": {
+          "anyOf": [
+            {
+              "enum": [
+                "ipv4",
+                "ipv6",
+                "ipv4_ipv6"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Address Family"
         }
       },
       "required": [
@@ -9782,6 +10006,18 @@
           "minLength": 1,
           "title": "Name",
           "type": "string"
+        },
+        "exact_match": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exact Match"
         }
       },
       "required": [
@@ -9981,6 +10217,18 @@
           ],
           "default": null,
           "title": "Contact"
+        },
+        "ifindex_persistent": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ifindex Persistent"
         }
       },
       "title": "SNMP",
@@ -10232,6 +10480,48 @@
         }
       },
       "title": "SSM",
+      "type": "object"
+    },
+    "SchedulerAllocation": {
+      "additionalProperties": false,
+      "properties": {
+        "configured": {
+          "title": "Configured",
+          "type": "boolean"
+        },
+        "interrupt_microseconds": {
+          "anyOf": [
+            {
+              "maximum": 60000,
+              "minimum": 400,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Interrupt Microseconds"
+        },
+        "process_microseconds": {
+          "anyOf": [
+            {
+              "maximum": 4000,
+              "minimum": 100,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Process Microseconds"
+        }
+      },
+      "required": [
+        "configured"
+      ],
+      "title": "SchedulerAllocation",
       "type": "object"
     },
     "Security": {

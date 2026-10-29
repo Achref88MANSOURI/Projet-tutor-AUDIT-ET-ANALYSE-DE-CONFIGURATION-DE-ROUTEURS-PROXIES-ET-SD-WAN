@@ -39,7 +39,7 @@ def handle(state, r):
         obj.type = v['type']
         state.bind(path + '/areas', line, list(v))
     elif rule == 'ospf_virtual_link':
-        collection(proc, 'virtual_links').append(s.VirtualLink(area=v['area'], peer_router_id=v['peer']))
+        collection(proc, 'virtual_links').append(s.VirtualLink(area=area_id(v['area']), peer_router_id=v['peer']))
         state.bind(path + '/virtual_links', line, list(v))
     elif rule in ('ospf_redistribute', 'ospf_redistribute_simple'):
         options = v.get('options', '').split()

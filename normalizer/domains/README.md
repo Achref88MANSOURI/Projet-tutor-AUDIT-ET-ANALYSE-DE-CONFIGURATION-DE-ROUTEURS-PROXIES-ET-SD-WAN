@@ -92,3 +92,11 @@ dans `routing.eigrp`, `routing.eigrp_interfaces` et les paramètres communs
 d'interface bandwidth/delay. Le module `policies.py` traite la nouvelle action
 vectorielle `eigrp_metric` sans remplacer l'action scalaire `metric`.
 [Portées, commandes et limites](../../docs/eigrp/README.md).
+
+## Correctifs de fidélité synchronisés
+
+Les conditions de communauté des route-maps, ACL TCP established, variantes de
+précédence QoS et leurs portées sont alimentées directement dans le contrat.
+Les métadonnées explicites, caches NetFlow et options natives reconnues disposent
+de mappings dédiés. La déclaration IS-IS est conservée pour les processus nommés
+ou non nommés. Aucune vue effective héritée ni objet L2 exclu n’est fabriqué.

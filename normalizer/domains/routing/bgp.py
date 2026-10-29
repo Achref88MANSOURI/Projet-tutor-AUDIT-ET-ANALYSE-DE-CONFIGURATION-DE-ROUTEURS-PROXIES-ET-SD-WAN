@@ -134,7 +134,7 @@ def handle(state, r):
             if length is None:
                 raise ValueError('Unsupported classful network')
             prefix = ip_network(f'{address}/{length}', strict=True)
-        collection(proc, 'networks').append(s.BGPNetwork(prefix=prefix, afi=af.get('afi') if af else None, safi=af.get('safi') if af else None, network_instance=af.get('vrf') if af else None))
+        collection(proc, 'networks').append(s.BGPNetwork(prefix=prefix, afi=af.get('afi') if af else ('ipv4' if prefix.version == 4 else 'ipv6'), safi=af.get('safi') if af else None, network_instance=af.get('vrf') if af else None))
         state.bind(path + '/networks', line, list(values))
     elif rule in PEER_RULES:
         if rule in ('bgp_advertise_additional', 'catalogue_allowas'):

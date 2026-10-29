@@ -1,5 +1,12 @@
 # Rapport de conformité de normalisation — deux configurations Cisco adaptées
 
+> **Actualisation de la distribution — 29 octobre 2026.** Ce rapport conserve
+> les résultats de comparaison initiaux. Les deux JSON du dossier ont depuis été
+> régénérés avec le moteur corrigé, à partir des mêmes CFG. L’indicateur IS-IS nommé
+> est désormais `declared: true`. Les 233 assertions annoncées ci-dessous n’ont pas
+> été réexécutées comme une nouvelle campagne indépendante. Voir le
+> [bilan de synchronisation](../docs/MISE_A_JOUR_NORMALISATION.md).
+
 > **Portée du rapport.** La « conformité » signifie ici **fidélité de transformation CFG → JSON**, et non conformité CIS/STIG, sécurisation de la configuration ou fonctionnement d'un routeur réel. Les configurations sont des fixtures synthétiques et portent l'avertissement `DO NOT DEPLOY`. Cette analyse utilise les deux CFG adaptés et les deux JSON renvoyés ; elle ne réexécute pas le parseur ni un routeur Cisco.
 
 ## 1. Synthèse comparative

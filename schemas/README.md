@@ -140,3 +140,15 @@ sa sémantique scalaire. Les nouveaux champs sont facultatifs et peuvent rester
 null. Le contrat reste RouterContractV1 / 1.0.0, mais les consommateurs utilisant
 un ancien schéma fermé doivent adopter le JSON Schema synchronisé.
 Voir [les décisions de modélisation](../docs/eigrp/README.md).
+
+## Champs synchronisés des correctifs Cisco
+
+Les modèles incluent `tcp_established`, `exact_match`, `QoSMatch.address_family`,
+les images de boot locales ordonnées, les paramètres propres aux caches NetFlow,
+la persistance ifIndex et les options natives Cisco typées (scheduler, CDP, FPD,
+IOAM, format de communautés, QFP et punt). `password_encryption_service` et
+`IsisProcess.declared` sont alimentés par les déclarations reconnues.
+
+La [convention de compatibilité](COMPATIBILITE.md) explique pourquoi le numéro
+`1.0.0` ne suffit pas à identifier un schéma exact ; épingler la révision et
+l’empreinte du JSON Schema. Le fichier fourni est régénéré depuis ces modèles.

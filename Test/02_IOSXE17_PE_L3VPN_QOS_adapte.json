@@ -156,7 +156,8 @@
       "users": null,
       "versions": null,
       "location": null,
-      "contact": null
+      "contact": null,
+      "ifindex_persistent": null
     },
     "flow_monitoring": {
       "export": null,
@@ -188,6 +189,7 @@
     "call_home": {
       "declared": true,
       "enabled": true,
+      "contact_email": null,
       "profiles": [
         {
           "name": "CiscoTAC-1",
@@ -199,7 +201,8 @@
       ]
     },
     "boot": {
-      "configuration_register": null
+      "configuration_register": null,
+      "images": null
     }
   },
   "interfaces": [
@@ -1080,7 +1083,7 @@
     "isis": [
       {
         "name": "CORE",
-        "declared": null,
+        "declared": true,
         "net": "49.0001.0000.0000.0001.00",
         "passive_interfaces": [
           "Loopback0"
@@ -1104,7 +1107,8 @@
             "matches": [
               {
                 "kind": "prefix_set_ipv4",
-                "name": "PREPEND-PRIVATE"
+                "name": "PREPEND-PRIVATE",
+                "exact_match": null
               }
             ],
             "actions": [
@@ -1124,7 +1128,8 @@
             "matches": [
               {
                 "kind": "prefix_set_ipv4",
-                "name": "PREPEND-PUBLIC"
+                "name": "PREPEND-PUBLIC",
+                "exact_match": null
               }
             ],
             "actions": [
@@ -1143,7 +1148,8 @@
             "matches": [
               {
                 "kind": "prefix_set_ipv4",
-                "name": "NO-PREPEND"
+                "name": "NO-PREPEND",
+                "exact_match": null
               }
             ],
             "actions": null,
@@ -1223,6 +1229,7 @@
             "log": null,
             "description": null,
             "log_input": null,
+            "tcp_established": null,
             "unparsed_clauses": null
           },
           {
@@ -1246,6 +1253,7 @@
             "log": null,
             "description": null,
             "log_input": null,
+            "tcp_established": null,
             "unparsed_clauses": null
           },
           {
@@ -1269,6 +1277,7 @@
             "log": null,
             "description": null,
             "log_input": null,
+            "tcp_established": null,
             "unparsed_clauses": null
           }
         ]
@@ -1298,6 +1307,7 @@
             "log": null,
             "description": null,
             "log_input": null,
+            "tcp_established": null,
             "unparsed_clauses": null
           }
         ]
@@ -1328,7 +1338,8 @@
         "matches": [
           {
             "kind": "dscp",
-            "value": "ef"
+            "value": "ef",
+            "address_family": null
           }
         ]
       },
@@ -1338,7 +1349,8 @@
         "matches": [
           {
             "kind": "acl",
-            "value": "SIP"
+            "value": "SIP",
+            "address_family": null
           }
         ]
       },
@@ -1348,7 +1360,8 @@
         "matches": [
           {
             "kind": "dscp",
-            "value": "cs3"
+            "value": "cs3",
+            "address_family": null
           }
         ]
       },
@@ -1358,7 +1371,8 @@
         "matches": [
           {
             "kind": "dscp",
-            "value": "af41"
+            "value": "af41",
+            "address_family": null
           }
         ]
       },
@@ -1368,7 +1382,8 @@
         "matches": [
           {
             "kind": "acl",
-            "value": "VOIP"
+            "value": "VOIP",
+            "address_family": null
           }
         ]
       }

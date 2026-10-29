@@ -20,6 +20,7 @@ class Node:
     kind: str = 'command'
     end_line: int | None = None
     children: list[int] = field(default_factory=list)
+    text_present: bool | None = None
 
 
 def root_family(text):
@@ -82,14 +83,20 @@ def inventory(text):
             if len(parts) == 3:
                 delimiter = '^C' if parts[2].startswith('^C') else parts[2][:1]
                 remainder = parts[2][len(delimiter):]
+                # Publish only the safe header to TTP, including inline banners.
+                node.text = f'banner {parts[1]} {delimiter}'
                 if delimiter in remainder:
-                    node.kind='opaque_banner';node.end_line=node.line
+                    node.end_line=node.line
+                    node.text_present = bool(remainder.split(delimiter, 1)[0].strip())
                 start = i + 1
                 if delimiter not in remainder:
                     while i < len(lines):
                         i += 1
                         if delimiter in lines[i - 1]:
                             break
+                    if i >= start and delimiter in lines[i - 1]:
+                        body = remainder + '\n' + '\n'.join(lines[start - 1:i])
+                        node.text_present = bool(body.split(delimiter, 1)[0].strip())
                     if i>=start:
                         blob = Node(start, '<opaque banner body>', indent + 1, node.line, root, family,
                                     'opaque_banner', i)

@@ -105,7 +105,7 @@ def handle(state,r):
         collection(obj, 'flow_directions').append(v['direction'])
         state.bind(path + '/flow_directions', line, ['direction'])
     elif rule == 'if_ospf3':
-        collection(obj, 'ospf_bindings').append(s.OSPFBinding(version=3, process=v['process'], area=v['area']))
+        collection(obj, 'ospf_bindings').append(s.OSPFBinding(version=3, process=v['process'], area=area_id(v['area'])))
         state.bind(path + '/ospf_bindings', line, list(v))
     elif rule == 'if_mop_off':
         field = {'enabled': 'mop_enabled', 'sysid': 'mop_sysid'}.get(v['feature'])

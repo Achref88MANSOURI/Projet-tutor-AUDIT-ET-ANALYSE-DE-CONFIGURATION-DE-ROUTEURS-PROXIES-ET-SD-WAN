@@ -38,6 +38,10 @@
 {{ source_line | DIGIT | to_int }} no service password-encryption
 </group>
 
+<group name="services_password_encryption_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service password-encryption
+</group>
+
 <group name="catalogue_password_minimum*" method="table">
 {{ source_line | DIGIT | to_int }} security passwords min-length {{ length | DIGIT | to_int }}
 </group>

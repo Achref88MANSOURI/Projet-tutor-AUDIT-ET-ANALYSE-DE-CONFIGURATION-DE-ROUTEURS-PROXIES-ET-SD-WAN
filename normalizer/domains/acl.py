@@ -49,13 +49,18 @@ def handle(state, r):
     if r['rule'].startswith('acl_header'):
         return
     options = values.get('options')
-    if options not in (None, 'log', 'log-input'):
+    tokens = options.split() if options else []
+    if tokens not in ([], ['log'], ['log-input'], ['established'], ['established', 'log'], ['established', 'log-input']):
+        return
+    if 'established' in tokens and values.get('protocol') not in ('tcp', '6'):
         return
     if options is not None:
         state.validation[line]['fields']['options'] = 'validated'
     entry = s.ACLEntry(sequence=values.get('sequence'), action=values['action'], protocol=values.get('protocol'),
         source=acl_operand(values['source']), destination=acl_operand(values['destination']) if values.get('destination') else None,
-        source_port=port(values.get('source_port')), destination_port=port(values.get('destination_port')), log=True if options == 'log' else None, log_input=True if options == 'log-input' else None)
+        source_port=port(values.get('source_port')), destination_port=port(values.get('destination_port')),
+        log=True if 'log' in tokens else None, log_input=True if 'log-input' in tokens else None,
+        tcp_established=True if 'established' in tokens else None)
     if entry.sequence is not None and any(e.sequence == entry.sequence for e in (obj.entries or [])):
         raise ValueError('Duplicate ACL sequence')
     collection(obj, 'entries').append(entry)

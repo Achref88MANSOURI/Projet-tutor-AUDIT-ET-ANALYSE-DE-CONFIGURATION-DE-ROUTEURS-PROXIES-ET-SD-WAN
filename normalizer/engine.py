@@ -13,7 +13,7 @@ from .common.absence import AbsenceResolver
 from .common.addresses import flat_official
 from .common.contexts import root, address_family, at
 from .common.configured import Binding, leaves, select_configured, validate_targets
-from .common.validation import validate
+from .common.validation import validate, validate_preserved_references
 from .domains import handler_for, DECLARATIONS
 from .domains import policies
 
@@ -170,6 +170,7 @@ class NormalizationEngine:
             self._apply(record, domain.resolve)
         validate_targets(self.c, self.bindings)
         configured = select_configured(self, policies.blocked_objects(self))
+        validate_preserved_references(self.c.model_dump(mode='json'), configured)
         self._result = validate(configured)
         return self._result
 

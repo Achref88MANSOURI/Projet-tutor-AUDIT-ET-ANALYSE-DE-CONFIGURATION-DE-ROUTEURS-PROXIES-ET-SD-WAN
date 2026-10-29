@@ -22,9 +22,10 @@ def handle(state,r):
         if rule == 'advanced_qos_classmap':
             state.bind(path, line, list(v))
             return
-        kind = {'advanced_qos_match_dscp': ('dscp', 'dscp'), 'advanced_qos_match_protocol': ('protocol', 'protocol'), 'advanced_qos_match_precedence': ('precedence', 'precedence'), 'advanced_qos_match_acl': ('acl', 'acl')}.get(rule)
+        kind = {'advanced_qos_match_dscp': ('dscp', 'dscp'), 'advanced_qos_match_protocol': ('protocol', 'protocol'), 'advanced_qos_match_precedence': ('precedence', 'precedence'), 'advanced_qos_match_precedence_both': ('precedence', 'precedence'), 'advanced_qos_match_acl': ('acl', 'acl')}.get(rule)
         if kind:
-            collection(obj, 'matches').append(s.QoSMatch(kind=kind[0], value=str(v[kind[1]])))
+            afi = 'ipv4' if rule == 'advanced_qos_match_precedence' else 'ipv4_ipv6' if rule == 'advanced_qos_match_precedence_both' else None
+            collection(obj, 'matches').append(s.QoSMatch(kind=kind[0], value=str(v[kind[1]]), address_family=afi))
             state.bind(path + '/matches', line, list(v))
     elif root['rule'] == 'advanced_qos_policymap':
         name = root['values']['name']

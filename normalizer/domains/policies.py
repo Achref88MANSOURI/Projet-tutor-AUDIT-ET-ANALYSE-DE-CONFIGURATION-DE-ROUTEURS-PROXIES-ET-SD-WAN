@@ -60,6 +60,16 @@ def handle(state, r):
 
 
 def resolve(state, r):
+    if r['rule'] == 'policy_match_community':
+        tokens = r['values']['value'].split()
+        if not tokens or len(tokens) > 2 or (len(tokens) == 2 and tokens[1] != 'exact') or tokens[0] == 'exact':
+            return
+        obj, path = state.entity(r['source_line'])
+        collection(obj, 'matches').append(s.RoutingPolicyMatch(
+            kind='community', name=tokens[0], exact_match=True if len(tokens) == 2 else None))
+        state.validation[r['source_line']]['fields']['value'] = 'validated'
+        state.bind(path + f'/matches/{len(obj.matches) - 1}', r['source_line'], ['value'])
+        return
     kinds = {'policy_match_acl': ('acl', (state.c.security.acls or []), 'ipv4'),
         'policy_match_prefix4': ('prefix_set_ipv4', (state.c.routing_policies.prefix_lists or []), 'ipv4'),
         'policy_match_prefix6': ('prefix_set_ipv6', (state.c.routing_policies.prefix_lists or []), 'ipv6')}

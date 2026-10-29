@@ -101,3 +101,12 @@ Les tests de développement ne sont pas inclus dans cette distribution.
 de route-map est reconnue dans `cisco_ios/policies.ttp`, en conservant la métrique
 scalaire existante. La [matrice EIGRP](../docs/eigrp/matrice_commandes.csv) répertorie
 les 129 règles ajoutées ; les limites de portée sont détaillées dans [le guide](../docs/eigrp/README.md).
+
+## Inventaire après stabilisation Cisco
+
+La distribution contient 580 règles TTP dans 31 fichiers et 12 familles.
+`advanced_qos_match_precedence_both` complète la forme IPv4 existante ;
+`services_password_encryption_on` complète la négation globale. Les pertes liées
+aux captures déjà disponibles ont été corrigées dans les mappings, sans dupliquer
+les templates. Les 173 associations de métadonnées comprennent 145 restrictions
+de portée et 48 ensembles de valeurs autorisées.
